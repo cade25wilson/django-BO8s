@@ -12,7 +12,7 @@ def download(request):
     if request.method == "POST":
         url = request.POST.get("url")
         yt = YouTube(url)
-        video = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+        video = yt.streams.get_highest_resolution()
         filename = video.default_filename
         video.download()
 
