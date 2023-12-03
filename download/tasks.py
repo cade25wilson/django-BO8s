@@ -11,7 +11,7 @@ def download_video(url):
     yt = YouTube(url)
     video = yt.streams.get_highest_resolution()
     filename = video.default_filename
-    download_path = os.path.join(os.getcwd(), 'download', filename)
+    download_path = os.path.join(os.getcwd(), 'download/download', filename)
     video.download(output_path=os.path.dirname(download_path))
 
     return filename

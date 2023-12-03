@@ -28,21 +28,33 @@ def index(request):
 
 #     return render(request, "index.html")
 
+# @csrf_exempt
+# def download(request):
+#     if request.method == "POST":
+#         url = request.POST.get("url")
+#         download_video.delay(url)
+#         # call videos view
+#         return videos(request)
+#         # videos = os.listdir(os.path.join(os.getcwd(), 'download/download'))
+#         # videos = [re.sub('\.mp4$', '', video) for video in videos]
+#         # return render(request, "videos.html", {"message": "Video is being downloaded", "videos": videos})
+
+#     return render(request, "index.html")
+
+
+# def videos(request):
+#     videos = os.listdir(os.path.join(os.getcwd(), 'download/download'))
+#     # remove .mp4 extension
+#     videos = [re.sub('\.mp4$', '', video) for video in videos]
+#     return render(request, "videos.html", {"videos": videos})
+
 @csrf_exempt
-def download(request):
+def videos(request):
     if request.method == "POST":
         url = request.POST.get("url")
         download_video.delay(url)
-        videos = os.listdir(os.path.join(os.getcwd(), 'download/download'))
-        videos = [re.sub('\.mp4$', '', video) for video in videos]
-        return render(request, "videos.html", {"message": "Video is being downloaded", "videos": videos})
 
-    return render(request, "index.html")
-
-
-def videos(request):
     videos = os.listdir(os.path.join(os.getcwd(), 'download/download'))
-    # remove .mp4 extension
     videos = [re.sub('\.mp4$', '', video) for video in videos]
     return render(request, "videos.html", {"videos": videos})
 
