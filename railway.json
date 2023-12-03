@@ -4,7 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "gunicorn --timeout 180 mysite.wsgi & celery -A mysite worker -l info",
+        "startCommand": "python migrate.py && gunicorn --timeout 180 mysite.wsgi & celery -A mysite worker -l info",
         "restartPolicyType": "ON_FAILURE",
         "restartPolicyMaxRetries": 10
     }
