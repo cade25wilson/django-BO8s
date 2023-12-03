@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,9 +127,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-CELERY_BROKER_URL = 'redis://default:kmCaeajDaJnIMFkJ6Ha3DKEO4gDHbaG6@viaduct.proxy.rlwy.net:23088'
-CELERY_RESULT_BACKEND = 'redis://default:kmCaeajDaJnIMFkJ6Ha3DKEO4gDHbaG6@viaduct.proxy.rlwy.net:23088'
-CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"]
+CELERY_RESULT_BACKEND = os.environ["CELERY_RESULT_BACKEND"]
+CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
