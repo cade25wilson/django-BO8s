@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import FileResponse, HttpResponse
 from wsgiref.util import FileWrapper
+from django.views.decorators.csrf import csrf_exempt
 from pytube import YouTube
 import os
 
 def index(request):
     return render(request, "index.html")
 
-# post request called download
+@csrf_exempt
 def download(request):
     if request.method == "POST":
         url = request.POST.get("url")
