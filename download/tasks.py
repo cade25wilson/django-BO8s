@@ -3,6 +3,7 @@ from celery import shared_task
 from .models import Video
 from pytube import YouTube
 from celery.exceptions import SoftTimeLimitExceeded
+import os
 
 logger = get_task_logger(__name__)
 
