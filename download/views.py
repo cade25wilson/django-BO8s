@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
+from wsgiref.util import FileWrapper
 from pytube import YouTube
 import os
 
@@ -15,11 +16,11 @@ def download(request):
         filename = video.default_filename
         video.download()
 
-        # Open the file in binary mode and return it as a response
-        with open(filename, 'rb') as f:
-            response = FileResponse(f, content_type='video/mp4')
-            # Set the Content-Disposition header to make the browser treat the response as a file download
-            response['Content-Disposition'] = f'attachment; filename={os.path.basename(filename)}'
-            return response
+        # Wrap the file in FileWrapper
+        wrapper = FileWrapper(open(filename, 'rb'))
+        response = HttpResponse(wrapper, content_type='video/mp4')
+        response['Content-Length'] = os.path.getsize(filename)
+        response['Content-Disposition'] = f'attachment; filename={os.path.basename(filename)}'
+        return response
 
     return render(request, "index.html")
