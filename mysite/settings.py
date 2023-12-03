@@ -126,6 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 CELERY_BROKER_URL = 'redis://default:kmCaeajDaJnIMFkJ6Ha3DKEO4gDHbaG6@viaduct.proxy.rlwy.net:23088'
+CELERY_RESULT_BACKEND = 'redis://default:kmCaeajDaJnIMFkJ6Ha3DKEO4gDHbaG6@viaduct.proxy.rlwy.net:23088'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
